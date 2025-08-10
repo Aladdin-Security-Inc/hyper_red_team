@@ -1,0 +1,86 @@
+<base target="_blank"><link rel="stylesheet" type="text/css" href="https://app.wandb.ai/normalize.css" /><pre><code># solution.py
+
+class LRUCache:
+    """
+    Least Recently Used (LRU) Cache implementation with O(1) get and put operations.
+    Uses a doubly linked list to maintain usage order and a dictionary for
+    constant-time key lookup.
+    """
+
+    class _Node:
+        __slots__ = ("key", "value", "prev", "next")
+
+        def __init__(self, key: int, value: int):
+            self.key = key
+            self.value = value
+            self.prev = None
+            self.next = None
+
+    def __init__(self, capacity: int):
+        if capacity <= 0:
+            raise ValueError("Capacity must be positive")
+        self.capacity = capacity
+        self.cache = {}  # key -> node
+
+        # Dummy head and tail nodes to simplify edge cases
+        self.head = self._Node(0, 0)
+        self.tail = self._Node(0, 0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+    # ---------- Internal helper methods ----------
+    def _add_to_head(self, node: "_Node") -> None:
+        """Insert node right after head."""
+        node.next = self.head.next
+        node.prev = self.head
+        self.head.next.prev = node
+        self.head.next = node
+
+    def _remove_node(self, node: "_Node") -> None:
+        """Detach node from its current position."""
+        prev_node = node.prev
+        next_node = node.next
+        prev_node.next = next_node
+        next_node.prev = prev_node
+
+    def _move_to_head(self, node: "_Node") -> None:
+        """Move an existing node to the most-recently-used position."""
+        self._remove_node(node)
+        self._add_to_head(node)
+
+    def _evict_tail(self) -> None:
+        """Remove the least-recently-used node (just before the tail)."""
+        lru = self.tail.prev
+        if lru is self.head:
+            return  # nothing to evict
+        self._remove_node(lru)
+        del self.cache[lru.key]
+
+    # ---------- Public API ----------
+    def get(self, key: int) -> int:
+        """
+        Return the value of the key if present, else -1.
+        Marks the key as most recently used.
+        """
+        node = self.cache.get(key)
+        if node is None:
+            return -1
+        self._move_to_head(node)
+        return node.value
+
+    def put(self, key: int, value: int) -> None:
+        """
+        Insert or update the key-value pair.
+        If the key already exists, update its value and mark it as most recently used.
+        If the cache exceeds its capacity, evict the least recently used item.
+        """
+        node = self.cache.get(key)
+        if node:
+            node.value = value
+            self._move_to_head(node)
+        else:
+            new_node = self._Node(key, value)
+            self.cache[key] = new_node
+            self._add_to_head(new_node)
+            if len(self.cache) > self.capacity:
+                self._evict_tail()</code></pre>

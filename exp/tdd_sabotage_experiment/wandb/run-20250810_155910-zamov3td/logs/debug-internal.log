@@ -1,0 +1,12 @@
+{"time":"2025-08-10T15:59:10.81821+09:00","level":"INFO","msg":"stream: starting","core version":"0.21.1"}
+{"time":"2025-08-10T15:59:11.161282+09:00","level":"INFO","msg":"stream: created new stream","id":"zamov3td"}
+{"time":"2025-08-10T15:59:11.161318+09:00","level":"INFO","msg":"stream: started","id":"zamov3td"}
+{"time":"2025-08-10T15:59:11.161323+09:00","level":"INFO","msg":"sender: started","stream_id":"zamov3td"}
+{"time":"2025-08-10T15:59:11.161333+09:00","level":"INFO","msg":"writer: started","stream_id":"zamov3td"}
+{"time":"2025-08-10T15:59:11.161319+09:00","level":"INFO","msg":"handler: started","stream_id":"zamov3td"}
+{"time":"2025-08-10T15:59:37.326257+09:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading artifact solution_code_zamov3td","runtime_seconds":2.044496708},{"desc":"uploading artifact run-zamov3td-iteration_details","runtime_seconds":1.259014,"subtasks":[{"desc":"iteration_details.table.json","runtime_seconds":0.456750667,"progress":"7.1KB/7.1KB"},{"desc":"media/html/ac6ed175fcd581f2b9b9.html","runtime_seconds":0.456730709,"progress":"5.8KB/5.8KB"},{"desc":"media/html/c79ea65cb29360245d9f.html","runtime_seconds":0.456647042,"progress":"2.9KB/2.9KB"}]},{"desc":"uploading output.log","runtime_seconds":0.777471209,"progress":"33.1KB/33.1KB"},{"desc":"uploading config.yaml","runtime_seconds":0.556949667,"progress":"1.7KB/1.7KB"}],"total_operations":4}}
+{"time":"2025-08-10T15:59:38.76801+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-08-10T15:59:39.052999+09:00","level":"INFO","msg":"stream: closing","id":"zamov3td"}
+{"time":"2025-08-10T15:59:39.053024+09:00","level":"INFO","msg":"handler: closed","stream_id":"zamov3td"}
+{"time":"2025-08-10T15:59:39.053152+09:00","level":"INFO","msg":"sender: closed","stream_id":"zamov3td"}
+{"time":"2025-08-10T15:59:39.05317+09:00","level":"INFO","msg":"stream: closed","id":"zamov3td"}

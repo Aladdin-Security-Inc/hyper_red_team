@@ -1,0 +1,12 @@
+{"time":"2025-08-10T15:55:44.7651+09:00","level":"INFO","msg":"stream: starting","core version":"0.21.1"}
+{"time":"2025-08-10T15:55:45.106901+09:00","level":"INFO","msg":"stream: created new stream","id":"ier1mj8f"}
+{"time":"2025-08-10T15:55:45.106932+09:00","level":"INFO","msg":"stream: started","id":"ier1mj8f"}
+{"time":"2025-08-10T15:55:45.106942+09:00","level":"INFO","msg":"writer: started","stream_id":"ier1mj8f"}
+{"time":"2025-08-10T15:55:45.106951+09:00","level":"INFO","msg":"handler: started","stream_id":"ier1mj8f"}
+{"time":"2025-08-10T15:55:45.106948+09:00","level":"INFO","msg":"sender: started","stream_id":"ier1mj8f"}
+{"time":"2025-08-10T15:56:10.967782+09:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading artifact solution_code_ier1mj8f","runtime_seconds":2.035512291},{"desc":"uploading artifact run-ier1mj8f-iteration_details","runtime_seconds":1.236479083,"subtasks":[{"desc":"iteration_details.table.json","runtime_seconds":0.419001667,"progress":"7.1KB/7.1KB"},{"desc":"media/html/83e4c8a0da7f1eef8a12.html","runtime_seconds":0.418968208,"progress":"129B/129B"},{"desc":"media/html/ac6ed175fcd581f2b9b9.html","runtime_seconds":0.418939,"progress":"5.8KB/5.8KB"},{"desc":"media/html/c79ea65cb29360245d9f.html","runtime_seconds":0.4189085,"progress":"2.9KB/2.9KB"}]},{"desc":"uploading output.log","runtime_seconds":0.770646625,"progress":"33.1KB/33.1KB"}],"total_operations":3}}
+{"time":"2025-08-10T15:56:12.441556+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-08-10T15:56:12.74925+09:00","level":"INFO","msg":"stream: closing","id":"ier1mj8f"}
+{"time":"2025-08-10T15:56:12.749275+09:00","level":"INFO","msg":"handler: closed","stream_id":"ier1mj8f"}
+{"time":"2025-08-10T15:56:12.74944+09:00","level":"INFO","msg":"sender: closed","stream_id":"ier1mj8f"}
+{"time":"2025-08-10T15:56:12.749477+09:00","level":"INFO","msg":"stream: closed","id":"ier1mj8f"}

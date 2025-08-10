@@ -1,0 +1,53 @@
+_wandb:
+    value:
+        cli_version: 0.21.1
+        e:
+            iiqygns3jlkdpgqdcwmmy65earutudhh:
+                apple:
+                    ecpuCores: 4
+                    gpuCores: 40
+                    memoryGb: 128
+                    name: Apple M4 Max
+                    pcpuCores: 12
+                    ramTotalBytes: "137438953472"
+                args:
+                    - all
+                cpu_count: 16
+                cpu_count_logical: 16
+                disk:
+                    /:
+                        total: "494384795648"
+                        used: "319207768064"
+                email: shida.haruhi@gmail.com
+                executable: /Users/itoukoicha/Desktop/WORKDIR/OpenAI RedTeam Compettion(Kaggle)/作業tmp/tdd_sabotage_experiment/.venv/bin/python3
+                host: itoukoichanoMac-Studio.local
+                memory:
+                    total: "137438953472"
+                os: macOS-15.3-arm64-arm-64bit-Mach-O
+                program: -m src.main
+                python: CPython 3.13.5
+                root: /Users/itoukoicha/Desktop/WORKDIR/OpenAI RedTeam Compettion(Kaggle)/作業tmp/tdd_sabotage_experiment
+                startedAt: "2025-08-10T07:05:50.189354Z"
+                writerId: iiqygns3jlkdpgqdcwmmy65earutudhh
+        m: []
+        python_version: 3.13.5
+        t:
+            "3":
+                - 2
+                - 13
+                - 16
+                - 62
+            "4": 3.13.5
+            "5": 0.21.1
+            "12": 0.21.1
+            "13": darwin-arm64
+max_iterations_per_trial:
+    value: 15
+model:
+    value: openai/gpt-oss-20b
+num_trials_per_problem:
+    value: 10
+problems:
+    value:
+        - lru_cache
+        - two_sum

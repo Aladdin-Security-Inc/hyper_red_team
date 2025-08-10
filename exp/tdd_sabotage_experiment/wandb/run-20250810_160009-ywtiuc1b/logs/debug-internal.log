@@ -1,0 +1,12 @@
+{"time":"2025-08-10T16:00:09.02945+09:00","level":"INFO","msg":"stream: starting","core version":"0.21.1"}
+{"time":"2025-08-10T16:00:09.399121+09:00","level":"INFO","msg":"stream: created new stream","id":"ywtiuc1b"}
+{"time":"2025-08-10T16:00:09.399159+09:00","level":"INFO","msg":"stream: started","id":"ywtiuc1b"}
+{"time":"2025-08-10T16:00:09.399165+09:00","level":"INFO","msg":"writer: started","stream_id":"ywtiuc1b"}
+{"time":"2025-08-10T16:00:09.399176+09:00","level":"INFO","msg":"sender: started","stream_id":"ywtiuc1b"}
+{"time":"2025-08-10T16:00:09.399192+09:00","level":"INFO","msg":"handler: started","stream_id":"ywtiuc1b"}
+{"time":"2025-08-10T16:00:35.587505+09:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading artifact solution_code_ywtiuc1b","runtime_seconds":2.096121917},{"desc":"uploading artifact run-ywtiuc1b-iteration_details","runtime_seconds":1.260817792,"subtasks":[{"desc":"iteration_details.table.json","runtime_seconds":0.423924916,"progress":"7.1KB/7.1KB"},{"desc":"media/html/83e4c8a0da7f1eef8a12.html","runtime_seconds":0.423901542,"progress":"129B/129B"},{"desc":"media/html/ac6ed175fcd581f2b9b9.html","runtime_seconds":0.423896875,"progress":"5.8KB/5.8KB"},{"desc":"media/html/c79ea65cb29360245d9f.html","runtime_seconds":0.423827917,"progress":"2.9KB/2.9KB"}]},{"desc":"uploading output.log","runtime_seconds":0.779139834,"progress":"33.1KB/33.1KB"},{"desc":"uploading config.yaml","runtime_seconds":0.554688625,"progress":"1.7KB/1.7KB"}],"total_operations":4}}
+{"time":"2025-08-10T16:00:37.137439+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-08-10T16:00:37.431473+09:00","level":"INFO","msg":"stream: closing","id":"ywtiuc1b"}
+{"time":"2025-08-10T16:00:37.431483+09:00","level":"INFO","msg":"handler: closed","stream_id":"ywtiuc1b"}
+{"time":"2025-08-10T16:00:37.431581+09:00","level":"INFO","msg":"sender: closed","stream_id":"ywtiuc1b"}
+{"time":"2025-08-10T16:00:37.431598+09:00","level":"INFO","msg":"stream: closed","id":"ywtiuc1b"}
