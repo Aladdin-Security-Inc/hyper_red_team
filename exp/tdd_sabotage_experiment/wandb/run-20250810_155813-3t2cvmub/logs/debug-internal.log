@@ -1,0 +1,12 @@
+{"time":"2025-08-10T15:58:13.133282+09:00","level":"INFO","msg":"stream: starting","core version":"0.21.1"}
+{"time":"2025-08-10T15:58:13.474638+09:00","level":"INFO","msg":"stream: created new stream","id":"3t2cvmub"}
+{"time":"2025-08-10T15:58:13.474671+09:00","level":"INFO","msg":"stream: started","id":"3t2cvmub"}
+{"time":"2025-08-10T15:58:13.474672+09:00","level":"INFO","msg":"handler: started","stream_id":"3t2cvmub"}
+{"time":"2025-08-10T15:58:13.474683+09:00","level":"INFO","msg":"sender: started","stream_id":"3t2cvmub"}
+{"time":"2025-08-10T15:58:13.474698+09:00","level":"INFO","msg":"writer: started","stream_id":"3t2cvmub"}
+{"time":"2025-08-10T15:58:39.889731+09:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading artifact run-3t2cvmub-iteration_details","runtime_seconds":1.227756542,"subtasks":[{"desc":"iteration_details.table.json","runtime_seconds":0.376658291,"progress":"7.1KB/7.1KB"},{"desc":"media/html/27c0e9fe5e7a1c3871fa.html","runtime_seconds":0.376652916,"progress":"3.0KB/3.0KB"},{"desc":"media/html/83e4c8a0da7f1eef8a12.html","runtime_seconds":0.376644417,"progress":"129B/129B"},{"desc":"media/html/c79ea65cb29360245d9f.html","runtime_seconds":0.37662625,"progress":"2.9KB/2.9KB"}]}],"total_operations":1}}
+{"time":"2025-08-10T15:58:41.384989+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-08-10T15:58:41.757779+09:00","level":"INFO","msg":"stream: closing","id":"3t2cvmub"}
+{"time":"2025-08-10T15:58:41.757792+09:00","level":"INFO","msg":"handler: closed","stream_id":"3t2cvmub"}
+{"time":"2025-08-10T15:58:41.757871+09:00","level":"INFO","msg":"sender: closed","stream_id":"3t2cvmub"}
+{"time":"2025-08-10T15:58:41.757879+09:00","level":"INFO","msg":"stream: closed","id":"3t2cvmub"}

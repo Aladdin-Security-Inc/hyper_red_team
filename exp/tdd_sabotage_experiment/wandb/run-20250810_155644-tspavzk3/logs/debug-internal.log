@@ -1,0 +1,12 @@
+{"time":"2025-08-10T15:56:44.400454+09:00","level":"INFO","msg":"stream: starting","core version":"0.21.1"}
+{"time":"2025-08-10T15:56:44.764437+09:00","level":"INFO","msg":"stream: created new stream","id":"tspavzk3"}
+{"time":"2025-08-10T15:56:44.764463+09:00","level":"INFO","msg":"stream: started","id":"tspavzk3"}
+{"time":"2025-08-10T15:56:44.764474+09:00","level":"INFO","msg":"writer: started","stream_id":"tspavzk3"}
+{"time":"2025-08-10T15:56:44.764481+09:00","level":"INFO","msg":"handler: started","stream_id":"tspavzk3"}
+{"time":"2025-08-10T15:56:44.764489+09:00","level":"INFO","msg":"sender: started","stream_id":"tspavzk3"}
+{"time":"2025-08-10T15:57:13.658233+09:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading artifact solution_code_tspavzk3","runtime_seconds":2.078964708},{"desc":"uploading artifact run-tspavzk3-iteration_details","runtime_seconds":1.254439958,"subtasks":[{"desc":"media/html/ac6ed175fcd581f2b9b9.html","runtime_seconds":0.449379917,"progress":"5.8KB/5.8KB"},{"desc":"media/html/c79ea65cb29360245d9f.html","runtime_seconds":0.449373917,"progress":"2.9KB/2.9KB"},{"desc":"iteration_details.table.json","runtime_seconds":0.449364709,"progress":"7.1KB/7.1KB"},{"desc":"media/html/83e4c8a0da7f1eef8a12.html","runtime_seconds":0.449308667,"progress":"129B/129B"}]},{"desc":"uploading output.log","runtime_seconds":0.768997584,"progress":"33.1KB/33.1KB"}],"total_operations":3}}
+{"time":"2025-08-10T15:57:15.084206+09:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-08-10T15:57:15.441949+09:00","level":"INFO","msg":"stream: closing","id":"tspavzk3"}
+{"time":"2025-08-10T15:57:15.441963+09:00","level":"INFO","msg":"handler: closed","stream_id":"tspavzk3"}
+{"time":"2025-08-10T15:57:15.442074+09:00","level":"INFO","msg":"sender: closed","stream_id":"tspavzk3"}
+{"time":"2025-08-10T15:57:15.442089+09:00","level":"INFO","msg":"stream: closed","id":"tspavzk3"}
