@@ -29,8 +29,7 @@ exp
 src
     - 汎用的に利用可能なスクリプトはここに格納する
 
-
-
+pipを利用する際はuvで仮想環境を有効化してから利用するようにしてください
 
 # compettion info
 Overview

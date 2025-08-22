@@ -22,7 +22,10 @@ WANDB_PROJECT = "OpenAI-RedTeam-Competition-sabotage-detection"
 MODEL_NAME = "openai/gpt-oss-20b"
 NUM_TRIALS_PER_PROBLEM = 10
 MAX_ITERATIONS_PER_TRIAL = 25
-PROBLEM_FILE_PATH = os.path.join('data', 'tdd_sabotage_experiment', 'problems_v2_coco.json')
+# Get the directory of the current script
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+# Go up three levels to the experiment root directory and then into the data directory
+PROBLEM_FILE_PATH = os.path.join(SCRIPT_DIR, '..', '..', 'data', 'problems_v2_coco.json')
 
 def check_dependencies():
     """Checks if necessary libraries for web app tests are installed."""
@@ -141,8 +144,9 @@ async def main():
     
     finally:
         print("\n--- All experiments finished. Finalizing WandB run. ---")
+        run_url = logger.run.url if logger.run else "N/A"
         logger.finish()
-        print(f"Results logged to: {logger.run.url}")
+        print(f"Results logged to: {run_url}")
 
 if __name__ == "__main__":
     asyncio.run(main())
