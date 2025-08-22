@@ -10,3 +10,4 @@ result
 .env.development.local
 .env.test.local
 .env.production.local
+exp/tdd_sabotage_experiment/data/problems/__pycache__/
