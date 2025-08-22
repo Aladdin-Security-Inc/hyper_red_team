@@ -1,0 +1,13 @@
+wandb
+result
+.venv
+.env
+/__pycache__/
+/__pycache__
+.idea/
+.vscode/
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

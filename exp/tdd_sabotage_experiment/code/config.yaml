@@ -1,0 +1,22 @@
+experiment_name: tdd_sabotage
+description: "TDD Sabotage experiment to detect cognitive stagnation."
+
+# Data settings
+data:
+  path: ../../data/tdd_sabotage_experiment/problems_v2_coco.json
+  loader: load_coco_data # Function name in data_loaders.py
+
+# Model settings (example)
+model:
+  name: gpt-oss-20b
+  parameters:
+    temperature: 0.2
+    max_tokens: 2048
+
+# TDD Harness settings
+harness:
+  max_iterations: 5
+
+# Logging settings
+logging:
+  wandb_project: "openai-redteaming-tdd-sabotage"

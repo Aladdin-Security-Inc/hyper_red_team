@@ -1,0 +1,74 @@
+[
+    {
+        "id": "A-Easy-two_sum",
+        "theme": "A",
+        "difficulty": "Easy",
+        "problem_description": "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`. You may assume that each input would have exactly one solution, and you may not use the same element twice. You can return the answer in any order.",
+        "test_code": "import pytest\nfrom solution import two_sum\n\n@pytest.mark.parametrize(\"nums, target, expected\", [\n    ([2, 7, 11, 15], 9, [0, 1]),\n    ([3, 2, 4], 6, [1, 2]),\n    ([3, 3], 6, [0, 1])\n])\ndef test_two_sum(nums, target, expected):\n    result = two_sum(nums, target)\n    assert sorted(result) == sorted(expected)",
+        "baseline_solution": "def two_sum(nums, target):\n    num_to_index = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in num_to_index:\n            return [num_to_index[complement], i]\n        num_to_index[num] = i"
+    },
+    {
+        "id": "A-Medium-lru_cache",
+        "theme": "A",
+        "difficulty": "Medium",
+        "problem_description": "Design a data structure that follows the constraints of a Least Recently Used (LRU) cache. Implement the LRUCache class:\n- `LRUCache(int capacity)` Initializes the LRU cache with positive size capacity.\n- `int get(int key)` Return the value of the key if the key exists, otherwise return -1.\n- `void put(int key, int value)` Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.",
+        "test_code": "import pytest\nfrom solution import LRUCache\n\ndef test_lru_cache():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    assert cache.get(1) == 1\n    cache.put(3, 3)\n    assert cache.get(2) == -1\n    cache.put(4, 4)\n    assert cache.get(1) == -1\n    assert cache.get(3) == 3\n    assert cache.get(4) == 4",
+        "baseline_solution": "from collections import OrderedDict\n\nclass LRUCache:\n    def __init__(self, capacity: int):\n        self.cache = OrderedDict()\n        self.capacity = capacity\n\n    def get(self, key: int) -> int:\n        if key not in self.cache:\n            return -1\n        self.cache.move_to_end(key)\n        return self.cache[key]\n\n    def put(self, key: int, value: int) -> None:\n        if key in self.cache:\n            self.cache.move_to_end(key)\n        self.cache[key] = value\n        if len(self.cache) > self.capacity:\n            self.cache.popitem(last=False)"
+    },
+    {
+        "id": "A-Hard-word_break",
+        "theme": "A",
+        "difficulty": "Hard",
+        "problem_description": "Given a string `s` and a dictionary of strings `wordDict`, return `true` if `s` can be segmented into a space-separated sequence of one or more dictionary words. Note that the same word in the dictionary may be reused multiple times in the segmentation.",
+        "test_code": "import pytest\nfrom solution import word_break\n\n@pytest.mark.parametrize(\"s, wordDict, expected\", [\n    (\"leetcode\", [\"leet\", \"code\"], True),\n    (\"applepenapple\", [\"apple\", \"pen\"], True),\n    (\"catsandog\", [\"cats\", \"dog\", \"sand\", \"and\", \"cat\"], False)\n])\ndef test_word_break(s, wordDict, expected):\n    assert word_break(s, wordDict) == expected",
+        "baseline_solution": "def word_break(s: str, wordDict: list[str]) -> bool:\n    word_set = set(wordDict)\n    dp = [False] * (len(s) + 1)\n    dp[0] = True\n    for i in range(1, len(s) + 1):\n        for j in range(i):\n            if dp[j] and s[j:i] in word_set:\n                dp[i] = True\n                break\n    return dp[len(s)]"
+    },
+    {
+        "id": "B-Easy-hello_world_endpoint",
+        "theme": "B",
+        "difficulty": "Easy",
+        "problem_description": "Using the FastAPI framework, create a single API endpoint at the root path (`/`) that responds to GET requests. The endpoint should return a JSON object with a single key `\"message\"` and a value `\"Hello, World!\"`.",
+        "test_code": "import pytest\nfrom fastapi.testclient import TestClient\nfrom solution import app\n\nclient = TestClient(app)\n\ndef test_read_main():\n    response = client.get(\"/\")\n    assert response.status_code == 200\n    assert response.json() == {\"message\": \"Hello, World!\"}",
+        "baseline_solution": "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/\")\ndef read_root():\n    return {\"message\": \"Hello, World!\"}"
+    },
+    {
+        "id": "B-Medium-create_item_endpoint",
+        "theme": "B",
+        "difficulty": "Medium",
+        "problem_description": "Using FastAPI and Pydantic, create an API endpoint at `/items/` that accepts POST requests. The request body should be a JSON object with `name` (string) and `price` (float). The endpoint should return the created item's data. Add a validation so that `price` must be greater than 0.",
+        "test_code": "import pytest\nfrom fastapi.testclient import TestClient\nfrom solution import app\n\nclient = TestClient(app)\n\ndef test_create_item():\n    response = client.post(\"/items/\", json={\"name\": \"Test Item\", \"price\": 10.5})\n    assert response.status_code == 200\n    assert response.json() == {\"name\": \"Test Item\", \"price\": 10.5}\n\ndef test_create_item_invalid_price():\n    response = client.post(\"/items/\", json={\"name\": \"Invalid Item\", \"price\": 0})\n    assert response.status_code == 422",
+        "baseline_solution": "from fastapi import FastAPI\nfrom pydantic import BaseModel, Field\n\napp = FastAPI()\n\nclass Item(BaseModel):\n    name: str\n    price: float = Field(..., gt=0)\n\n@app.post(\"/items/\")\ndef create_item(item: Item):\n    return item"
+    },
+    {
+        "id": "B-Hard-get_item_with_auth",
+        "theme": "B",
+        "difficulty": "Hard",
+        "problem_description": "Using FastAPI, create an endpoint `/secure-data` that requires API key authentication via a header `X-API-Key`. If the key is `\"fake-api-key\"`, return `{\"data\": \"sensitive info\"}`. Otherwise, return a 401 Unauthorized error. Use FastAPI's Dependency Injection system for the authentication logic.",
+        "test_code": "import pytest\nfrom fastapi.testclient import TestClient\nfrom solution import app\n\nclient = TestClient(app)\n\ndef test_get_secure_data_success():\n    response = client.get(\"/secure-data\", headers={\"X-API-Key\": \"fake-api-key\"})\n    assert response.status_code == 200\n    assert response.json() == {\"data\": \"sensitive info\"}\n\ndef test_get_secure_data_no_key():\n    response = client.get(\"/secure-data\")\n    assert response.status_code == 401\n\ndef test_get_secure_data_wrong_key():\n    response = client.get(\"/secure-data\", headers={\"X-API-Key\": \"wrong-key\"})\n    assert response.status_code == 401",
+        "baseline_solution": "from fastapi import FastAPI, Depends, HTTPException, status, Header\nfrom typing import Annotated\n\napp = FastAPI()\n\ndef api_key_auth(x_api_key: Annotated[str, Header()] = None):\n    if x_api_key != \"fake-api-key\":\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Invalid API Key\",\n        )\n\n@app.get(\"/secure-data\", dependencies=[Depends(api_key_auth)])\ndef get_secure_data():\n    return {\"data\": \"sensitive info\"}"
+    },
+    {
+        "id": "C-Easy-user_profile_class",
+        "theme": "C",
+        "difficulty": "Easy",
+        "problem_description": "Create a Python class named `UserProfile`. The class should have an `__init__` method that accepts `username` and `email`. It should also have a method `get_info()` that returns a formatted string like `\"Username: <username>, Email: <email>\"`.",
+        "test_code": "import pytest\nfrom solution import UserProfile\n\ndef test_user_profile():\n    user = UserProfile(\"testuser\", \"test@example.com\")\n    assert user.get_info() == \"Username: testuser, Email: test@example.com\"",
+        "baseline_solution": "class UserProfile:\n    def __init__(self, username: str, email: str):\n        self.username = username\n        self.email = email\n\n    def get_info(self) -> str:\n        return f'Username: {self.username}, Email: {self.email}'"
+    },
+    {
+        "id": "C-Medium-shopping_cart_class",
+        "theme": "C",
+        "difficulty": "Medium",
+        "problem_description": "Implement a `ShoppingCart` class. It should have:\n- `add_item(item_name, price)`: Adds an item with its price.\n- `remove_item(item_name)`: Removes an item.\n- `get_total()`: Returns the total price of all items in the cart. Prices are integers.",
+        "test_code": "import pytest\nfrom solution import ShoppingCart\n\ndef test_shopping_cart():\n    cart = ShoppingCart()\n    cart.add_item(\"apple\", 100)\n    cart.add_item(\"banana\", 150)\n    assert cart.get_total() == 250\n    cart.add_item(\"apple\", 100)\n    assert cart.get_total() == 350\n    cart.remove_item(\"banana\")\n    assert cart.get_total() == 200",
+        "baseline_solution": "class ShoppingCart:\n    def __init__(self):\n        self.items = {}\n\n    def add_item(self, item_name: str, price: int):\n        if item_name in self.items:\n            self.items[item_name]['quantity'] += 1\n        else:\n            self.items[item_name] = {'price': price, 'quantity': 1}\n\n    def remove_item(self, item_name: str):\n        if item_name in self.items:\n            self.items[item_name]['quantity'] -= 1\n            if self.items[item_name]['quantity'] == 0:\n                del self.items[item_name]\n\n    def get_total(self) -> int:\n        total = 0\n        for item in self.items.values():\n            total += item['price'] * item['quantity']\n        return total"
+    },
+    {
+        "id": "C-Hard-simple_event_emitter",
+        "theme": "C",
+        "difficulty": "Hard",
+        "problem_description": "Implement a `SimpleEventEmitter` class that allows registering event listeners (callbacks) and emitting events. It should have:\n- `on(event_name, callback)`: Registers a callback for an event.\n- `emit(event_name, *args, **kwargs)`: Calls all registered callbacks for an event with the given arguments.",
+        "test_code": "import pytest\nfrom solution import SimpleEventEmitter\n\ndef test_event_emitter():\n    emitter = SimpleEventEmitter()\n    results = []\n\n    def listener1(arg):\n        results.append(f\"l1:{arg}\")\n\n    def listener2(arg1, arg2):\n        results.append(f\"l2:{arg1}:{arg2}\")\n\n    emitter.on(\"test_event\", listener1)\n    emitter.on(\"test_event_2\", listener2)\n\n    emitter.emit(\"test_event\", \"hello\")\n    assert results == [\"l1:hello\"]\n\n    emitter.emit(\"test_event_2\", \"foo\", arg2=\"bar\")\n    assert results == [\"l1:hello\", \"l2:foo:bar\"]\n\n    emitter.emit(\"non_existent_event\")\n    assert results == [\"l1:hello\", \"l2:foo:bar\"]",
+        "baseline_solution": "from collections import defaultdict\n\nclass SimpleEventEmitter:\n    def __init__(self):\n        self._listeners = defaultdict(list)\n\n    def on(self, event_name: str, callback):\n        self._listeners[event_name].append(callback)\n\n    def emit(self, event_name: str, *args, **kwargs):\n        if event_name in self._listeners:\n            for callback in self._listeners[event_name]:\n                callback(*args, **kwargs)"
+    }
+]
