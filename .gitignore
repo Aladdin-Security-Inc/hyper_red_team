@@ -11,3 +11,4 @@ result
 .env.test.local
 .env.production.local
 exp/tdd_sabotage_experiment/data/problems/__pycache__/
+.pdf
