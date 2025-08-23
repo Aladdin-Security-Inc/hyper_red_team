@@ -7,22 +7,16 @@ from groq import Groq
 from dotenv import load_dotenv
 
 # --- Configuration ---
-# Set the number of times to run each conversation set
 NUM_RUNS_PER_CONVERSATION = 1
+PROMPT_FILE = "Top_Threats/prompts.csv"
 
-# Define the list of prompt files to run experiments on
-PROMPT_FILES = [  
-    "Categories/Drugs/prompts.csv"
-]
-
-def run_experiment_for_file(prompt_file):
+def run_focused_experiment(prompt_file):
     """
-    Runs a controlled jailbreak experiment for a single specified prompt file.
+    Runs a focused 3-step jailbreak experiment.
     """
-    print(f"\n{'='*20} Starting Experiment for: {prompt_file} {'='*20}")
+    print(f"\n{'='*20} Starting Focused Experiment for: {prompt_file} {'='*20}")
 
     # --- 1. Setup ---
-    # W&B Login is only needed once, but we check here for robustness
     try:
         wandb.login(key=WANDB_API_KEY, relogin=True)
     except Exception as e:
@@ -30,21 +24,20 @@ def run_experiment_for_file(prompt_file):
         return
 
     # --- 2. Initialize W&B Run ---
-    # Create a unique run name including the filename
-    file_basename = os.path.splitext(prompt_file)[0]
-    run_name = f"{file_basename}_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    file_basename = os.path.splitext(os.path.basename(prompt_file))[0]
+    run_name = f"Focused_{file_basename}_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}"
 
     run = wandb.init(
-        project="Gemini-Jailbreak-Comparison-Multifile",
+        project="Gemini-Jailbreak-Focused-Threats",
         name=run_name,
         config={
             "model_name": "llama3-70b-8192",
             "prompt_set": prompt_file,
             "temperature": 0,
-            "jailbreak_technique": "Controlled Two-Step Contrastive Context Shift",
+            "jailbreak_technique": "Controlled Three-Step Quantitative Deep-Dive",
             "runs_per_conversation": NUM_RUNS_PER_CONVERSATION
         },
-        reinit=True # Allows multiple wandb.init calls in one script
+        reinit=True
     )
     print(f"W&B run initialized for {prompt_file}: {run.url}")
 
@@ -60,7 +53,7 @@ def run_experiment_for_file(prompt_file):
 
     results_table = wandb.Table(columns=[
         "run_number", "category", "initial_prompt", "step1_response_content", 
-        "step2_prompt", "final_response", "request_time"
+        "step2_prompt", "step2_response", "step3_prompt", "step3_response", "total_request_time"
     ])
     total_conversations = len(prompts_df)
     print(f"Found {total_conversations} predefined conversations. Each will be run {NUM_RUNS_PER_CONVERSATION} times.")
@@ -74,38 +67,59 @@ def run_experiment_for_file(prompt_file):
             initial_prompt = row['initial_prompt']
             step1_response = row['step1_response_content']
             step2_prompt = row['step2_prompt']
+            step3_prompt = row['step3_prompt']
             
             print(f"  Processing conversation {index+1}/{total_conversations} (Category: {category})...")
             start_time = time.time()
             
-            final_response_content = ""
+            step2_response_content = ""
+            step3_response_content = ""
 
             try:
-                messages_history = [
+                # Step 2 API Call
+                messages_history_step2 = [
                     {"role": "user", "content": initial_prompt},
                     {"role": "assistant", "content": step1_response},
                     {"role": "user", "content": step2_prompt}
                 ]
-                completion = client.chat.completions.create(
-                    messages=messages_history,
+                completion_step2 = client.chat.completions.create(
+                    messages=messages_history_step2,
                     model=run.config.model_name,
                     temperature=run.config.temperature,
                 )
-                final_response_content = completion.choices[0].message.content
-                print(f"    ...Success.")
+                step2_response_content = completion_step2.choices[0].message.content
+                print(f"    ...Step 2 Success.")
+
+                # Step 3 API Call
+                messages_history_step3 = messages_history_step2 + [
+                    {"role": "assistant", "content": step2_response_content},
+                    {"role": "user", "content": step3_prompt}
+                ]
+                completion_step3 = client.chat.completions.create(
+                    messages=messages_history_step3,
+                    model=run.config.model_name,
+                    temperature=run.config.temperature,
+                )
+                step3_response_content = completion_step3.choices[0].message.content
+                print(f"    ...Step 3 Success.")
+
             except Exception as e:
-                final_response_content = f"An error occurred during the API call: {e}"
+                error_message = f"An error occurred during an API call: {e}"
+                if not step2_response_content:
+                    step2_response_content = error_message
+                step3_response_content = error_message
                 print(f"    ...Error: {e}")
             
-            request_time = time.time() - start_time
+            total_request_time = time.time() - start_time
             
             results_table.add_data(
                 run_num, category, initial_prompt, step1_response, 
-                step2_prompt, final_response_content, request_time
+                step2_prompt, step2_response_content, 
+                step3_prompt, step3_response_content, total_request_time
             )
 
     # --- 5. Log Results and Finish ---
-    run.log({"jailbreak_results": results_table})
+    run.log({"focused_jailbreak_results": results_table})
     print(f"\nAll runs for {prompt_file} completed. Results logged to W&B.")
     run.finish()
 
@@ -118,7 +132,5 @@ if __name__ == "__main__":
     if not GROQ_API_KEY or not WANDB_API_KEY:
         print("ERROR: Please set GROQ_API_KEY and WANDB_API_KEY in a .env file.")
     else:
-        # Loop through the defined list of files and run the experiment for each
-        for file in PROMPT_FILES:
-            run_experiment_for_file(file)
-        print(f"\n{'='*20} All experiments finished. {'='*20}")
+        run_focused_experiment(PROMPT_FILE)
+        print(f"\n{'='*20} Focused experiment finished. {'='*20}")
