@@ -31,7 +31,7 @@ def run_focused_experiment(prompt_file):
         project="Gemini-Jailbreak-Focused-Threats",
         name=run_name,
         config={
-            "model_name": "llama3-70b-8192",
+            "model_name": "openai/gpt-oss-20b",
             "prompt_set": prompt_file,
             "temperature": 0,
             "jailbreak_technique": "Controlled Three-Step Quantitative Deep-Dive",

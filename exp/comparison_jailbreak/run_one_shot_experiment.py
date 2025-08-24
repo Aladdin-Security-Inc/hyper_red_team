@@ -11,8 +11,8 @@ from dotenv import load_dotenv
 NUM_RUNS_PER_CONVERSATION = 1
 
 # Define the list of prompt files to run experiments on
-PROMPT_FILES = [  
-    "Categories/Drugs/prompts.csv"
+PROMPT_FILES = [
+    "Top_Threats/prompts_one_shot.csv"
 ]
 
 def run_experiment_for_file(prompt_file):
@@ -35,13 +35,13 @@ def run_experiment_for_file(prompt_file):
     run_name = f"{file_basename}_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}"
 
     run = wandb.init(
-        project="Gemini-Jailbreak-Comparison-Multifile",
+        project="Comparison-Jailbreak-One-Shot",
         name=run_name,
         config={
             "model_name": "openai/gpt-oss-20b",
             "prompt_set": prompt_file,
             "temperature": 0,
-            "jailbreak_technique": "Controlled Two-Step Contrastive Context Shift",
+            "jailbreak_technique": "One Shot",
             "runs_per_conversation": NUM_RUNS_PER_CONVERSATION
         },
         reinit=True # Allows multiple wandb.init calls in one script
@@ -50,7 +50,7 @@ def run_experiment_for_file(prompt_file):
 
     # --- 3. Load Data and Initialize Client ---
     client = Groq(api_key=GROQ_API_KEY)
-    
+
     try:
         prompts_df = pd.read_csv(prompt_file, quotechar='"', engine='python')
     except FileNotFoundError:
@@ -59,8 +59,8 @@ def run_experiment_for_file(prompt_file):
         return
 
     results_table = wandb.Table(columns=[
-        "run_number", "category", "initial_prompt", "step1_response_content", 
-        "step2_prompt", "final_response", "request_time"
+        "run_number", "category", "prompt", "final_response", "request_time",
+        "prompt_tokens", "completion_tokens", "total_tokens"
     ])
     total_conversations = len(prompts_df)
     print(f"Found {total_conversations} predefined conversations. Each will be run {NUM_RUNS_PER_CONVERSATION} times.")
@@ -68,23 +68,22 @@ def run_experiment_for_file(prompt_file):
     # --- 4. Run Experiment Loop ---
     for run_num in range(1, NUM_RUNS_PER_CONVERSATION + 1):
         print(f"--- Starting Run {run_num}/{NUM_RUNS_PER_CONVERSATION} for all conversations in {prompt_file} ---")
-        
+
         for index, row in prompts_df.iterrows():
             category = row['category']
-            initial_prompt = row['initial_prompt']
-            step1_response = row['step1_response_content']
-            step2_prompt = row['step2_prompt']
-            
+            prompt = row['prompt']
+
             print(f"  Processing conversation {index+1}/{total_conversations} (Category: {category})...")
             start_time = time.time()
-            
+
             final_response_content = ""
+            prompt_tokens = 0
+            completion_tokens = 0
+            total_tokens = 0
 
             try:
                 messages_history = [
-                    {"role": "user", "content": initial_prompt},
-                    {"role": "assistant", "content": step1_response},
-                    {"role": "user", "content": step2_prompt}
+                    {"role": "user", "content": prompt}
                 ]
                 completion = client.chat.completions.create(
                     messages=messages_history,
@@ -92,16 +91,20 @@ def run_experiment_for_file(prompt_file):
                     temperature=run.config.temperature,
                 )
                 final_response_content = completion.choices[0].message.content
+                if completion.usage:
+                    prompt_tokens = completion.usage.prompt_tokens
+                    completion_tokens = completion.usage.completion_tokens
+                    total_tokens = completion.usage.total_tokens
                 print(f"    ...Success.")
             except Exception as e:
                 final_response_content = f"An error occurred during the API call: {e}"
                 print(f"    ...Error: {e}")
-            
+
             request_time = time.time() - start_time
-            
+
             results_table.add_data(
-                run_num, category, initial_prompt, step1_response, 
-                step2_prompt, final_response_content, request_time
+                run_num, category, prompt, final_response_content, request_time,
+                prompt_tokens, completion_tokens, total_tokens
             )
 
     # --- 5. Log Results and Finish ---
