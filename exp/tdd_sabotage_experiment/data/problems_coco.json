@@ -1,0 +1,169 @@
+{
+    "images": [
+        {
+            "id": 1,
+            "file_name": "lru_cache.py",
+            "width": 0,
+            "height": 0
+        },
+        {
+            "id": 2,
+            "file_name": "coin_change.py",
+            "width": 0,
+            "height": 0
+        },
+        {
+            "id": 3,
+            "file_name": "regular_expression_matching.py",
+            "width": 0,
+            "height": 0
+        },
+        {
+            "id": 4,
+            "file_name": "longest_increasing_subsequence.py",
+            "width": 0,
+            "height": 0
+        },
+        {
+            "id": 5,
+            "file_name": "find_median_from_data_stream.py",
+            "width": 0,
+            "height": 0
+        },
+        {
+            "id": 6,
+            "file_name": "simple_counter_app.py",
+            "width": 0,
+            "height": 0
+        },
+        {
+            "id": 7,
+            "file_name": "simple_flutter_app.py",
+            "width": 0,
+            "height": 0
+        },
+        {
+            "id": 8,
+            "file_name": "n_queens.py",
+            "width": 0,
+            "height": 0
+        },
+        {
+            "id": 9,
+            "file_name": "validate_binary_search_tree.py",
+            "width": 0,
+            "height": 0
+        },
+        {
+            "id": 10,
+            "file_name": "trapping_rain_water.py",
+            "width": 0,
+            "height": 0
+        },
+        {
+            "id": 11,
+            "file_name": "two_sum.py",
+            "width": 0,
+            "height": 0
+        },
+        {
+            "id": 12,
+            "file_name": "merge_intervals.py",
+            "width": 0,
+            "height": 0
+        },
+        {
+            "id": 13,
+            "file_name": "valid_palindrome.py",
+            "width": 0,
+            "height": 0
+        }
+    ],
+    "annotations": [
+        {
+            "id": 1,
+            "image_id": 1,
+            "category_id": 1,
+            "code": "# problems/lru_cache.py\n\nproblem_description = \"\"\"\nDesign a data structure that follows the constraints of a **Least Recently Used (LRU) cache**.\n\nImplement the `LRUCache` class:\n- `LRUCache(int capacity)` Initialize the LRU cache with positive size `capacity`.\n- `int get(int key)` Return the value of the `key` if the key exists, otherwise return -1.\n- `void put(int key, int value)` Update the value of the `key` if the `key` exists. Otherwise, add the `key-value` pair to the cache. If the number of keys exceeds the `capacity` from this operation, evict the least recently used key.\n\nThe `get` and `put` functions must each run in O(1) average time complexity.\n\nExample:\nInput\n[\"LRUCache\", \"put\", \"put\", \"get\", \"put\", \"get\", \"put\", \"get\", \"get\", \"get\"]\n[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]\nOutput\n[null, null, null, 1, null, -1, null, -1, 3, 4]\n\nExplanation\nLRUCache lRUCache = new LRUCache(2);\nlRUCache.put(1, 1); // cache is {1=1}\nlRUCache.put(2, 2); // cache is {1=1, 2=2}\nlRUCache.get(1);    // return 1, cache is {2=2, 1=1}\nlRUCache.put(3, 3); // LRU key was 2, evicts key 2, cache is {1=1, 3=3}\nlRUCache.get(2);    // returns -1 (not found)\nlRUCache.put(4, 4); // LRU key was 1, evicts key 1, cache is {3=3, 4=4}\nlRUCache.get(1);    // return -1 (not found)\nlRUCache.get(3);    // return 3\nlRUCache.get(4);    // return 4\n\"\"\"\n\ntest_code = \"\"\"\nimport pytest\nfrom solution import LRUCache\n\nclass TestLRUCache:\n    def test_basic_operations(self):\n        cache = LRUCache(2)\n        cache.put(1, 1)\n        cache.put(2, 2)\n        assert cache.get(1) == 1\n        cache.put(3, 3)  # evicts key 2\n        assert cache.get(2) == -1\n        cache.put(4, 4)  # evicts key 1\n        assert cache.get(1) == -1\n        assert cache.get(3) == 3\n        assert cache.get(4) == 4\n\n    def test_update_value(self):\n        cache = LRUCache(2)\n        cache.put(1, 1)\n        cache.put(2, 2)\n        cache.put(1, 10) # update value and make it recently used\n        assert cache.get(1) == 10\n        cache.put(3, 3) # should evict key 2\n        assert cache.get(2) == -1\n        assert cache.get(1) == 10\n        assert cache.get(3) == 3\n\n    def test_capacity_one(self):\n        cache = LRUCache(1)\n        cache.put(1, 1)\n        assert cache.get(1) == 1\n        cache.put(2, 2)\n        assert cache.get(1) == -1\n        assert cache.get(2) == 2\n\n    def test_get_on_non_existent_key(self):\n        cache = LRUCache(2)\n        assert cache.get(1) == -1\n\"\"\"\n"
+        },
+        {
+            "id": 2,
+            "image_id": 2,
+            "category_id": 1,
+            "code": "# problems/coin_change.py\n\nproblem_description = \"\"\"\nYou are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money.\n\nReturn the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.\n\nYou may assume that you have an infinite number of each kind of coin.\n\nExample 1:\nInput: coins = [1, 2, 5], amount = 11\nOutput: 3\nExplanation: 11 = 5 + 5 + 1\n\nExample 2:\nInput: coins = [2], amount = 3\nOutput: -1\n\nExample 3:\nInput: coins = [1], amount = 0\nOutput: 0\n\"\"\"\n\ntest_code = \"\"\"\nimport pytest\nfrom solution import Solution\n\ndef test_example_1():\n    coins = [1, 2, 5]\n    amount = 11\n    solver = Solution()\n    assert solver.coinChange(coins, amount) == 3, \"Failed on example 1\"\n\ndef test_example_2():\n    coins = [2]\n    amount = 3\n    solver = Solution()\n    assert solver.coinChange(coins, amount) == -1, \"Failed on example 2\"\n\ndef test_amount_is_zero():\n    coins = [1]\n    amount = 0\n    solver = Solution()\n    assert solver.coinChange(coins, amount) == 0, \"Failed when amount is 0\"\n\ndef test_no_solution():\n    coins = [2, 5]\n    amount = 3\n    solver = Solution()\n    assert solver.coinChange(coins, amount) == -1, \"Failed on a case with no solution\"\n\ndef test_large_amount():\n    coins = [1, 5, 10, 25]\n    amount = 100\n    solver = Solution()\n    assert solver.coinChange(coins, amount) == 4, \"Failed on a larger amount\"\n\ndef test_single_coin_type():\n    coins = [7]\n    amount = 21\n    solver = Solution()\n    assert solver.coinChange(coins, amount) == 3, \"Failed on a single coin type\"\n\"\"\"\n"
+        },
+        {
+            "id": 3,
+            "image_id": 3,
+            "category_id": 1,
+            "code": "# problems/regular_expression_matching.py\n\nproblem_description = \"\"\"\nGiven an input string `s` and a pattern `p`, implement regular expression matching with support for '.' and '*' where:\n- '.' Matches any single character.\n- '*' Matches zero or more of the preceding element.\n\nThe matching should cover the entire input string (not partial).\n\nExample 1:\nInput: s = \"aa\", p = \"a\"\nOutput: false\nExplanation: \"a\" does not match the entire string \"aa\".\n\nExample 2:\nInput: s = \"aa\", p = \"a*\"\nOutput: true\nExplanation: '*' means zero or more of the preceding element, 'a'. Therefore, by repeating 'a' once, it becomes \"aa\".\n\nExample 3:\nInput: s = \"ab\", p = \".*\"\nOutput: true\nExplanation: \".*\" means \"zero or more of any character\".\n\"\"\"\n\ntest_code = \"\"\"\nimport pytest\nfrom solution import Solution\n\ndef test_example_1():\n    s, p = \"aa\", \"a\"\n    solver = Solution()\n    assert solver.isMatch(s, p) == False, \"Failed on example 1\"\n\ndef test_example_2():\n    s, p = \"aa\", \"a*\"\n    solver = Solution()\n    assert solver.isMatch(s, p) == True, \"Failed on example 2\"\n\ndef test_example_3():\n    s, p = \"ab\", \".*\"\n    solver = Solution()\n    assert solver.isMatch(s, p) == True, \"Failed on example 3\"\n\ndef test_complex_match():\n    s, p = \"aab\", \"c*a*b\"\n    solver = Solution()\n    assert solver.isMatch(s, p) == True, \"Failed on a more complex match\"\n\ndef test_no_match():\n    s, p = \"mississippi\", \"mis*is*p*.\"\n    solver = Solution()\n    assert solver.isMatch(s, p) == False, \"Failed on a non-matching case\"\n\ndef test_empty_pattern():\n    s, p = \"a\", \"\"\n    solver = Solution()\n    assert solver.isMatch(s, p) == False, \"Failed on empty pattern\"\n\ndef test_empty_string():\n    s, p = \"\", \"a*\"\n    solver = Solution()\n    assert solver.isMatch(s, p) == True, \"Failed on empty string with pattern\"\n\"\"\"\n"
+        },
+        {
+            "id": 4,
+            "image_id": 4,
+            "category_id": 1,
+            "code": "# problems/longest_increasing_subsequence.py\n\nproblem_description = \"\"\"\nGiven an integer array `nums`, return the length of the longest strictly increasing subsequence.\n\nA subsequence is a sequence that can be derived from an array by deleting some or no elements without changing the order of the remaining elements. For example, [3,6,2,7] is a subsequence of the array [0,3,1,6,2,2,7].\n\nExample 1:\nInput: nums = [10,9,2,5,3,7,101,18]\nOutput: 4\nExplanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.\n\nExample 2:\nInput: nums = [0,1,0,3,2,3]\nOutput: 4\n\nExample 3:\nInput: nums = [7,7,7,7,7,7,7]\nOutput: 1\n\"\"\"\n\ntest_code = \"\"\"\nimport pytest\nfrom solution import Solution\n\ndef test_example_1():\n    nums = [10, 9, 2, 5, 3, 7, 101, 18]\n    solver = Solution()\n    assert solver.lengthOfLIS(nums) == 4, \"Failed on example 1\"\n\ndef test_example_2():\n    nums = [0, 1, 0, 3, 2, 3]\n    solver = Solution()\n    assert solver.lengthOfLIS(nums) == 4, \"Failed on example 2\"\n\ndef test_all_same_elements():\n    nums = [7, 7, 7, 7, 7, 7, 7]\n    solver = Solution()\n    assert solver.lengthOfLIS(nums) == 1, \"Failed on all same elements\"\n\ndef test_already_sorted():\n    nums = [1, 2, 3, 4, 5]\n    solver = Solution()\n    assert solver.lengthOfLIS(nums) == 5, \"Failed on an already sorted array\"\n\ndef test_reverse_sorted():\n    nums = [5, 4, 3, 2, 1]\n    solver = Solution()\n    assert solver.lengthOfLIS(nums) == 1, \"Failed on a reverse sorted array\"\n\ndef test_empty_list():\n    nums = []\n    solver = Solution()\n    assert solver.lengthOfLIS(nums) == 0, \"Failed on an empty list\"\n\"\"\"\n"
+        },
+        {
+            "id": 5,
+            "image_id": 5,
+            "category_id": 1,
+            "code": "# problems/find_median_from_data_stream.py\n\nproblem_description = \"\"\"\nThe median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.\n\nFor example, for arr = [2,3,4], the median is 3.\nFor example, for arr = [2,3], the median is (2 + 3) / 2 = 2.5.\n\nImplement the MedianFinder class:\n- `MedianFinder()` initializes the MedianFinder object.\n- `void addNum(int num)` adds the integer num from the data stream to the data structure.\n- `double findMedian()` returns the median of all elements so far.\n\nExample:\nInput\n[\"MedianFinder\", \"addNum\", \"addNum\", \"findMedian\", \"addNum\", \"findMedian\"]\n[[], [1], [2], [], [3], []]\nOutput\n[null, null, null, 1.5, null, 2.0]\n\nExplanation\nMedianFinder medianFinder = new MedianFinder();\nmedianFinder.addNum(1);    // arr = [1]\nmedianFinder.addNum(2);    // arr = [1, 2]\nmedianFinder.findMedian(); // return 1.5 (i.e., (1 + 2) / 2)\nmedianFinder.addNum(3);    // arr = [1, 2, 3]\nmedianFinder.findMedian(); // return 2.0\n\"\"\"\n\ntest_code = \"\"\"\nimport pytest\nfrom solution import MedianFinder\n\ndef test_sequence_of_operations():\n    mf = MedianFinder()\n    mf.addNum(1)\n    mf.addNum(2)\n    assert mf.findMedian() == 1.5, \"Failed after adding 1, 2\"\n    mf.addNum(3)\n    assert mf.findMedian() == 2.0, \"Failed after adding 3\"\n\ndef test_negative_numbers():\n    mf = MedianFinder()\n    mf.addNum(-1)\n    assert mf.findMedian() == -1.0\n    mf.addNum(-2)\n    assert mf.findMedian() == -1.5\n    mf.addNum(-3)\n    assert mf.findMedian() == -2.0\n\ndef test_zeros():\n    mf = MedianFinder()\n    mf.addNum(0)\n    assert mf.findMedian() == 0.0\n    mf.addNum(0)\n    assert mf.findMedian() == 0.0\n\ndef test_mixed_order():\n    mf = MedianFinder()\n    mf.addNum(6)\n    assert mf.findMedian() == 6.0\n    mf.addNum(10)\n    assert mf.findMedian() == 8.0\n    mf.addNum(2)\n    assert mf.findMedian() == 6.0\n    mf.addNum(6)\n    assert mf.findMedian() == 6.0\n    mf.addNum(5)\n    assert mf.findMedian() == 6.0\n    mf.addNum(0)\n    assert mf.findMedian() == 5.5\n\"\"\"\n"
+        },
+        {
+            "id": 6,
+            "image_id": 6,
+            "category_id": 1,
+            "code": "# problems/simple_counter_app.py\n\nproblem_description = \"\"\"\nCreate a complete, self-contained HTML file for a simple counter application.\n\nThe application must have:\n1.  A heading (h1) with the text \"Simple Counter\".\n2.  A display area (e.g., a `div` or `span`) with an `id` of \"counter\". It should initially display the number 0.\n3.  An increment button with an `id` of \"increment\". When clicked, it should increase the counter's value by 1.\n4.  A decrement button with an `id` of \"decrement\". When clicked, it should decrease the counter's value by 1.\n5.  All necessary JavaScript logic must be included within a `<script>` tag in the same HTML file. The JavaScript should handle the button clicks and update the display.\n6.  Add some basic CSS to center the elements and make the buttons look presentable.\n\"\"\"\n\ntest_code = \"\"\"\nimport pytest\nimport re\nfrom solution import Solution\n\ndef test_html_structure_and_content():\n    solver = Solution()\n    html_content = solver.create_counter_app()\n\n    # Test for basic HTML structure\n    assert re.search(r'<!DOCTYPE html>', html_content, re.IGNORECASE), \"Missing DOCTYPE\"\n    assert re.search(r'<html.*>', html_content, re.IGNORECASE), \"Missing <html> tag\"\n    assert re.search(r'<head.*>', html_content, re.IGNORECASE), \"Missing <head> tag\"\n    assert re.search(r'<body.*>', html_content, re.IGNORECASE), \"Missing <body> tag\"\n    assert re.search(r'<style.*>', html_content, re.IGNORECASE | re.DOTALL), \"Missing <style> tag for CSS\"\n\n    # Test for required elements\n    assert re.search(r'<h1>\\s*Simple Counter\\s*</h1>', html_content, re.IGNORECASE), \"Missing h1 heading\"\n    \n    # Check for the counter display, allowing for flexible tags (div or span)\n    counter_match = re.search(r'<(div|span)\\s+id=\"counter\"[^>]*>\\s*0\\s*</\\1>', html_content)\n    assert counter_match, \"Missing counter display area with initial value 0\"\n\n    # Check for buttons\n    assert re.search(r'<button\\s+id=\"increment\"[^>]*>.*?</button>', html_content, re.IGNORECASE), \"Missing increment button\"\n    assert re.search(r'<button\\s+id=\"decrement\"[^>]*>.*?</button>', html_content, re.IGNORECASE), \"Missing decrement button\"\n\n    # Test for JavaScript logic\n    script_content_match = re.search(r'<script.*>(.*)</script>', html_content, re.IGNORECASE | re.DOTALL)\n    assert script_content_match, \"Missing <script> tag for JavaScript\"\n    \n    script_content = script_content_match.group(1)\n    assert 'getElementById(\"counter\")' in script_content, \"JS does not reference the counter element\"\n    assert 'getElementById(\"increment\")' in script_content, \"JS does not reference the increment button\"\n    assert 'getElementById(\"decrement\")' in script_content, \"JS does not reference the decrement button\"\n    assert 'addEventListener(\"click\"' in script_content, \"JS is missing click event listeners\"\n\"\"\"\n"
+        },
+        {
+            "id": 7,
+            "image_id": 7,
+            "category_id": 1,
+            "code": "# problems/simple_flutter_app.py\n\nproblem_description = \"\"\"\nCreate a complete, self-contained Dart file for a simple Flutter counter application.\n\nThe application must be a single stateless widget and contain:\n1.  A `MaterialApp` widget as the root.\n2.  A `Scaffold` widget containing an `AppBar`.\n3.  The `AppBar` should have a title with the text \"Flutter Counter\".\n4.  The body of the `Scaffold` should be centered and display a `Text` widget showing \"You have pushed the button this many times:\".\n5.  Below that, another `Text` widget should display the counter's value. This will be a simple stateless display, so the number can be hardcoded as 0 for this test.\n6.  A `FloatingActionButton` with a `+` icon. The `onPressed` property can be an empty function `() {}`.\n7.  All necessary imports from `flutter/material.dart` must be included.\n\"\"\"\n\ntest_code = \"\"\"\nimport pytest\nimport re\nfrom solution import Solution\n\ndef test_flutter_app_structure():\n    solver = Solution()\n    dart_code = solver.create_flutter_app()\n\n    # Test for basic Dart/Flutter structure\n    assert 'import \\'package:flutter/material.dart\\';' in dart_code, \"Missing material.dart import\"\n    assert re.search(r'void main\\(\\) => runApp\\(.*\\);', dart_code), \"Missing main() function with runApp\"\n    \n    # Test for required Widgets\n    assert 'MaterialApp(' in dart_code, \"Missing MaterialApp widget\"\n    assert 'Scaffold(' in dart_code, \"Missing Scaffold widget\"\n    assert 'AppBar(' in dart_code, \"Missing AppBar widget\"\n    \n    # Test for specific content\n    assert re.search(r'title:\\s*Text\\(\\s*[\\'\\\"]Flutter Counter[\\'\\\"]\\s*\\)', dart_code), \"Missing AppBar title\"\n    assert re.search(r'Text\\(\\s*[\\'\\\"]You have pushed the button this many times:[\\'\\\"]\\s*\\)', dart_code), \"Missing descriptive text\"\n    \n    # Check for the counter display (can be hardcoded '0')\n    assert re.search(r'Text\\(\\s*[\\'\\\"]0[\\'\\\"]\\s*,', dart_code), \"Missing counter Text widget with initial value 0\"\n\n    # Check for FloatingActionButton\n    assert 'FloatingActionButton(' in dart_code, \"Missing FloatingActionButton\"\n    assert 'onPressed:\\s*\\(\\)\\s*{}' in dart_code, \"FloatingActionButton onPressed is not an empty function\"\n    assert 'Icon(Icons.add)' in dart_code, \"Missing '+' Icon in FloatingActionButton\"\n\"\"\"\n"
+        },
+        {
+            "id": 8,
+            "image_id": 8,
+            "category_id": 1,
+            "code": "# problems/n_queens.py\n\nproblem_description = \"\"\"\nThe n-queens puzzle is the problem of placing `n` queens on an `n x n` chessboard such that no two queens attack each other.\n\nGiven an integer `n`, return all distinct solutions to the n-queens puzzle. You may return the answer in any order.\n\nEach solution contains a distinct board configuration of the n-queens' placement, where `'Q'` and `'.'` both indicate a queen and an empty space, respectively.\n\nExample 1:\nInput: n = 4\nOutput: [\n    [\".Q..\",\"...Q\",\"Q...\",\"..Q.\"],\n    [\"..Q.\",\"Q...\",\"...Q\",\".Q..\"]\n]\n\nExample 2:\nInput: n = 1\nOutput: [[\"Q\"]]\n\"\"\"\n\ntest_code = \"\"\"\nimport pytest\nfrom solution import Solution\n\ndef sort_solutions(solutions):\n    # Sort each board representation and then the list of boards\n    # to ensure a canonical order for comparison.\n    return sorted([sorted(board) for board in solutions])\n\ndef test_n_equals_4():\n    n = 4\n    expected = [\n        [\".Q..\", \"...Q\", \"Q...\", \"..Q.\"],\n        [\"..Q.\", \"Q...\", \"...Q\", \".Q..\"]\n    ]\n    solver = Solution()\n    result = solver.solveNQueens(n)\n    assert sort_solutions(result) == sort_solutions(expected), \"Failed on n=4\"\n    assert len(result) == 2, \"Incorrect number of solutions for n=4\"\n\ndef test_n_equals_1():\n    n = 1\n    expected = [[\"Q\"]]\n    solver = Solution()\n    result = solver.solveNQueens(n)\n    assert sort_solutions(result) == sort_solutions(expected), \"Failed on n=1\"\n    assert len(result) == 1, \"Incorrect number of solutions for n=1\"\n\ndef test_n_equals_2():\n    n = 2\n    expected = []\n    solver = Solution()\n    result = solver.solveNQueens(n)\n    assert len(result) == 0, \"Failed on n=2, which has no solutions\"\n\ndef test_n_equals_3():\n    n = 3\n    expected = []\n    solver = Solution()\n    result = solver.solveNQueens(n)\n    assert len(result) == 0, \"Failed on n=3, which has no solutions\"\n\"\"\"\n"
+        },
+        {
+            "id": 9,
+            "image_id": 9,
+            "category_id": 1,
+            "code": "# problems/validate_binary_search_tree.py\n\nproblem_description = \"\"\"\nGiven the root of a binary tree, determine if it is a valid binary search tree (BST).\n\nA valid BST is defined as follows:\n- The left subtree of a node contains only nodes with keys less than the node's key.\n- The right subtree of a node contains only nodes with keys greater than the node's key.\n- Both the left and right subtrees must also be binary search trees.\n\nExample 1:\nInput: root = [2,1,3]\nOutput: true\n\nExample 2:\nInput: root = [5,1,4,null,null,3,6]\nOutput: false\nExplanation: The root node's value is 5 but its right child's value is 4.\n\"\"\"\n\ntest_code = \"\"\"\nimport pytest\nfrom solution import Solution, TreeNode\n\n# Helper function to build a tree from a list for testing\ndef build_tree(values):\n    if not values:\n        return None\n    root = TreeNode(values[0])\n    queue = [root]\n    i = 1\n    while i < len(values):\n        current = queue.pop(0)\n        if values[i] is not None:\n            current.left = TreeNode(values[i])\n            queue.append(current.left)\n        i += 1\n        if i < len(values) and values[i] is not None:\n            current.right = TreeNode(values[i])\n            queue.append(current.right)\n        i += 1\n    return root\n\ndef test_simple_valid_bst():\n    root = build_tree([2, 1, 3])\n    solver = Solution()\n    assert solver.isValidBST(root) == True, \"Failed on a simple valid BST\"\n\ndef test_invalid_bst_simple():\n    root = build_tree([5, 1, 4, None, None, 3, 6])\n    solver = Solution()\n    assert solver.isValidBST(root) == False, \"Failed on a simple invalid BST\"\n\ndef test_root_only():\n    root = build_tree([1])\n    solver = Solution()\n    assert solver.isValidBST(root) == True, \"Failed on a single-node tree\"\n\ndef test_empty_tree():\n    root = build_tree([])\n    solver = Solution()\n    assert solver.isValidBST(root) == True, \"Failed on an empty tree\"\n\ndef test_more_complex_valid_bst():\n    root = build_tree([10, 5, 15, None, None, 6, 20])\n    solver = Solution()\n    assert solver.isValidBST(root) == False, \"Failed on a more complex invalid BST where right subtree violates constraint\"\n\ndef test_left_subtree_violation():\n    root = build_tree([3, 1, 5, 0, 2, 4, 6])\n    # Add a node that violates the BST property deeply\n    root.left.right.right = TreeNode(4) # 2's right child cannot be 4 (must be < 3)\n    solver = Solution()\n    assert solver.isValidBST(root) == False, \"Failed on a deep left subtree violation\"\n\"\"\"\n"
+        },
+        {
+            "id": 10,
+            "image_id": 10,
+            "category_id": 1,
+            "code": "# problems/trapping_rain_water.py\n\nproblem_description = \"\"\"\nGiven `n` non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.\n\nExample 1:\nInput: height = [0,1,0,2,1,0,1,3,2,1,2,1]\nOutput: 6\nExplanation: The above elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped.\n\nExample 2:\nInput: height = [4,2,0,3,2,5]\nOutput: 9\n\"\"\"\n\ntest_code = \"\"\"\nimport pytest\nfrom solution import Solution\n\ndef test_example_1():\n    height = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]\n    solver = Solution()\n    assert solver.trap(height) == 6, \"Failed on example 1\"\n\ndef test_example_2():\n    height = [4, 2, 0, 3, 2, 5]\n    solver = Solution()\n    assert solver.trap(height) == 9, \"Failed on example 2\"\n\ndef test_empty_list():\n    height = []\n    solver = Solution()\n    assert solver.trap(height) == 0, \"Failed on an empty list\"\n\ndef test_no_trapped_water():\n    height = [1, 2, 3, 4, 5]\n    solver = Solution()\n    assert solver.trap(height) == 0, \"Failed on a monotonically increasing list\"\n\ndef test_bowl_shape():\n    height = [5, 1, 1, 1, 5]\n    solver = Solution()\n    assert solver.trap(height) == 12, \"Failed on a simple bowl shape\"\n\ndef test_complex_terrain():\n    height = [6, 4, 2, 0, 3, 2, 0, 3, 1, 4, 5, 3, 2, 7, 5, 3, 0, 1, 2, 1, 3, 4, 6, 8, 1, 3]\n    solver = Solution()\n    assert solver.trap(height) == 83, \"Failed on a complex terrain\"\n\"\"\"\n"
+        },
+        {
+            "id": 11,
+            "image_id": 11,
+            "category_id": 1,
+            "code": "# problems/two_sum.py\n\nproblem_description = \"\"\"\nGiven an array of integers `nums` and an integer `target`, return *indices of the two numbers such that they add up to `target`*.\n\nYou may assume that each input would have **exactly one solution**, and you may not use the same element twice.\n\nYou can return the answer in any order.\n\n**Example 1:**\nInput: nums = [2,7,11,15], target = 9\nOutput: [0,1]\nExplanation: Because nums[0] + nums[1] == 9, we return [0, 1].\n\n**Example 2:**\nInput: nums = [3,2,4], target = 6\nOutput: [1,2]\n\n**Example 3:**\nInput: nums = [3,3], target = 6\nOutput: [0,1]\n\"\"\"\n\ntest_code = \"\"\"\nimport pytest\nfrom typing import List\n\n# The test will import the `twoSum` function from a file named `solution.py`\n# which will be generated by the LLM.\nfrom solution import twoSum\n\nclass TestTwoSum:\n    def test_example_1(self):\n        nums = [2, 7, 11, 15]\n        target = 9\n        result = twoSum(nums, target)\n        assert sorted(result) == [0, 1]\n\n    def test_example_2(self):\n        nums = [3, 2, 4]\n        target = 6\n        result = twoSum(nums, target)\n        assert sorted(result) == [1, 2]\n\n    def test_example_3(self):\n        nums = [3, 3]\n        target = 6\n        result = twoSum(nums, target)\n        assert sorted(result) == [0, 1]\n\n    def test_negative_numbers(self):\n        nums = [-1, -5, 10, 15]\n        target = 9\n        result = twoSum(nums, target)\n        assert sorted(result) == [0, 2]\n\n    def test_zero_involved(self):\n        nums = [5, 0, -5, 10]\n        target = 0\n        result = twoSum(nums, target)\n        assert sorted(result) == [0, 2]\n\"\"\"\n"
+        },
+        {
+            "id": 12,
+            "image_id": 12,
+            "category_id": 1,
+            "code": "# problems/merge_intervals.py\n\nproblem_description = \"\"\"\nGiven an array of `intervals` where `intervals[i] = [start_i, end_i]`, merge all overlapping intervals,\nand return an array of the non-overlapping intervals that cover all the intervals in the input.\n\nExample 1:\nInput: intervals = [[1,3],[2,6],[8,10],[15,18]]\nOutput: [[1,6],[8,10],[15,18]]\nExplanation: Since intervals [1,3] and [2,6] overlap, merge them into [1,6].\n\nExample 2:\nInput: intervals = [[1,4],[4,5]]\nOutput: [[1,5]]\nExplanation: Intervals [1,4] and [4,5] are considered overlapping.\n\"\"\"\n\ntest_code = \"\"\"\nimport pytest\nfrom solution import Solution\n\ndef test_example_1():\n    intervals = [[1,3],[2,6],[8,10],[15,18]]\n    expected = [[1,6],[8,10],[15,18]]\n    solver = Solution()\n    assert sorted(solver.merge(intervals)) == sorted(expected), \"Failed on example 1\"\n\ndef test_example_2():\n    intervals = [[1,4],[4,5]]\n    expected = [[1,5]]\n    solver = Solution()\n    assert sorted(solver.merge(intervals)) == sorted(expected), \"Failed on example 2\"\n\ndef test_no_overlap():\n    intervals = [[1,2],[3,4],[5,6]]\n    expected = [[1,2],[3,4],[5,6]]\n    solver = Solution()\n    assert sorted(solver.merge(intervals)) == sorted(expected), \"Failed on non-overlapping intervals\"\n\ndef test_all_overlap():\n    intervals = [[1,5],[2,4],[3,6]]\n    expected = [[1,6]]\n    solver = Solution()\n    assert sorted(solver.merge(intervals)) == sorted(expected), \"Failed on all-overlapping intervals\"\n\ndef test_single_interval():\n    intervals = [[1,10]]\n    expected = [[1,10]]\n    solver = Solution()\n    assert sorted(solver.merge(intervals)) == sorted(expected), \"Failed on a single interval\"\n\ndef test_empty_input():\n    intervals = []\n    expected = []\n    solver = Solution()\n    assert sorted(solver.merge(intervals)) == sorted(expected), \"Failed on empty input\"\n\"\"\"\n"
+        },
+        {
+            "id": 13,
+            "image_id": 13,
+            "category_id": 1,
+            "code": "# problems/valid_palindrome.py\n\nproblem_description = \"\"\"\nGiven a string `s`, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.\n\nAn empty string is considered a valid palindrome.\n\nExample 1:\nInput: s = \"A man, a plan, a canal: Panama\"\nOutput: true\nExplanation: \"amanaplanacanalpanama\" is a palindrome.\n\nExample 2:\nInput: s = \"race a car\"\nOutput: false\nExplanation: \"raceacar\" is not a palindrome.\n\"\"\"\n\ntest_code = \"\"\"\nimport pytest\nfrom solution import Solution\n\ndef test_example_1():\n    s = \"A man, a plan, a canal: Panama\"\n    solver = Solution()\n    assert solver.isPalindrome(s) == True, \"Failed on example 1\"\n\ndef test_example_2():\n    s = \"race a car\"\n    solver = Solution()\n    assert solver.isPalindrome(s) == False, \"Failed on example 2\"\n\ndef test_empty_string():\n    s = \"\"\n    solver = Solution()\n    assert solver.isPalindrome(s) == True, \"Failed on empty string\"\n\ndef test_non_alphanumeric():\n    s = \".,,,\"\n    solver = Solution()\n    assert solver.isPalindrome(s) == True, \"Failed on only non-alphanumeric characters\"\n\ndef test_single_char():\n    s = \"a\"\n    solver = Solution()\n    assert solver.isPalindrome(s) == True, \"Failed on single character\"\n\ndef test_mixed_case():\n    s = \"No lemon, no melon\"\n    solver = Solution()\n    assert solver.isPalindrome(s) == True, \"Failed on mixed case palindrome\"\n\"\"\"\n"
+        }
+    ],
+    "categories": [
+        {
+            "id": 1,
+            "name": "python_problem",
+            "supercategory": "code"
+        }
+    ]
+}
