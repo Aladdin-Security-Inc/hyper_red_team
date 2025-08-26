@@ -2,3 +2,4 @@ wandb
 groq
 pandas
 dotenv
+nbformat
