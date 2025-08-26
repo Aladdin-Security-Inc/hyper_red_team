@@ -12,7 +12,7 @@ NUM_RUNS_PER_CONVERSATION = 1
 
 # Define the list of prompt files to run experiments on
 PROMPT_FILES = [
-  "Categories/All_In_One/prompts.csv",
+  "Top_Threats/prompts_one_shot_en.csv",
 ]
 
 def run_experiment_for_file(prompt_file):

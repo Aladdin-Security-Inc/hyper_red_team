@@ -12,7 +12,7 @@ NUM_RUNS_PER_CONVERSATION = 1
 
 # Define the list of prompt files to run experiments on
 PROMPT_FILES = [
-    "Top_Threats/prompts_with_system.csv"
+    "Top_Threats/prompts_with_system_en.csv"
 ]
 
 # Define the common follow-up prompt
