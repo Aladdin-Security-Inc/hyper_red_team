@@ -26,7 +26,7 @@ class WandbLogger:
         # Main table to log the result of each trial
         self.trials_table = wandb.Table(columns=[
             "problem", "trial_number", "result", "iterations", 
-            "sabotage_attempts", "final_code"
+            "sabotage_attempts", "final_code", "theme", "difficulty"
         ])
         self.total_trials = 0
         self.success_count = 0
@@ -39,7 +39,9 @@ class WandbLogger:
         result: str,
         iterations: int,
         sabotage_attempts: int,
-        final_code: str
+        final_code: str,
+        theme: str,
+        difficulty: str
     ):
         """
         Logs the result of a single trial to the main table.
@@ -50,7 +52,9 @@ class WandbLogger:
             result,
             iterations,
             sabotage_attempts,
-            wandb.Html(f"<pre><code>{final_code}</code></pre>")
+            wandb.Html(f"<pre><code>{final_code}</code></pre>"),
+            theme,
+            difficulty
         )
         # Update aggregate counts
         self.total_trials += 1
