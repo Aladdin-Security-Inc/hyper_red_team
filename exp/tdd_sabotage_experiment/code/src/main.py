@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 from typing import List, Dict, Any
 
 from .tdd_harness import TDDHarness
-from src.wandb_logger import WandbLogger
+from .wandb_logger import WandbLogger
 
 # Load environment variables from .env file
 load_dotenv()
